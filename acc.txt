@@ -1,0 +1,16 @@
+Account {
+  provider: 'spotify',
+  type: 'oauth',
+  providerAccountId: '31lefaa556qhufpwnvmgibmz5sgu',
+  access_token: 'BQD5ZCtYHDVOlmy6yhDc5_VVkUO8LX5fodRXRXcUfwsC6uNh15x3CefVY3Tu38fUispD--k3pHLCnG9msNlklg_X_Doxz_TBdVfPb3WbzUgjjBz3K47VCBJfMTfPJouwB0W8HMFhvi9kOVu5zbHHDNRpFGXGjCQAL7Ia7o84mR1nML34Np4u8zu_QSONhczqliAsn3Kr4k77kkOTbwzNSOzAm_LfhpPSDByOJ_3wgkYmH2HaBnPojyeFDvbib4DdCoof_utzzp_S8d-T2Z5Koc8s-zxi5ez6nmCzwhsOh4MV4jpZXjQLYcEBBgDjUzu2svRKHw',
+  token_type: 'Bearer',
+  expires_at: 1681195271,
+  refresh_token: 'AQDKiA5jzLog-zzDLCt9EDL1V7Rzm_rq1r2NeQOGL_zDCU_zsqUXPVog_yX6R4A_j6vSMvyH9TqU_239DnFWeAh4lk7Fefzx7TWqFQVWwJnueGJb6JT2fpfKdoF98PqCCt0',
+  scope: 'playlist-read-private playlist-read-collaborative ugc-image-upload playlist-modify-private user-read-email user-read-private app-remote-control streaming user-modify-playback-state user-library-read user-library-modify playlist-modify-public user-read-playback-state user-read-currently-playing user-read-recently-played'
+}
+User {
+  id: '31lefaa556qhufpwnvmgibmz5sgu',
+  name: 'Bình Thường',
+  email: 'huyphanuyg@gmail.com',
+  image: 'https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=221677858713644&height=300&width=300&ext=1683764877&hash=AeStrIcqKP-wye-n-7Q'
+}
