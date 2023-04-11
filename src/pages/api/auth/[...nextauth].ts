@@ -30,8 +30,11 @@ const refreshAccessToken = async ( token: ExtendedToken): Promise<ExtendedToken>
 };
 
 
+
+
 const jwtCallback: CallbacksOptions["jwt"] = async ({ token, account, user }) => {
   let extendedToken: ExtendedToken;
+
   // user login the first time
   if (account && user) {
     extendedToken = {
@@ -42,6 +45,7 @@ const jwtCallback: CallbacksOptions["jwt"] = async ({ token, account, user }) =>
       // converted to mil
       accessTokenExpiresAt: (account.expires_at as number) * 1000,
     };
+
     console.log("FIRST TIME LOGIN EXTENDED TOKEN", extendedToken);
     return extendedToken;
   }
@@ -55,6 +59,10 @@ const jwtCallback: CallbacksOptions["jwt"] = async ({ token, account, user }) =>
   console.log("access token expired, refreshing...");
   return await refreshAccessToken(token as ExtendedToken);
 };
+
+
+
+
 
 export default NextAuth({
   providers: [
