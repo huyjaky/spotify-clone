@@ -1,17 +1,9 @@
 import DetailProducts from "@/components/detailproducts/DetailProducts";
 import Navbar from "@/components/navbar/Navbar";
-import {
-  decrement,
-  fetchPosts,
-  getErr,
-  getStatus,
-  increment,
-  selectVal,
-} from "@/slices/SliceCounter";
 import { Montserrat } from "next/font/google";
 import Head from "next/head";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -19,16 +11,13 @@ const montserrat = Montserrat({
   variable: "--font-montserrat",
 });
 
-type FetchPostsAction = ReturnType<typeof fetchPosts>;
+
 
 export default function Home() {
   const dispatch = useDispatch<any>();
-  const count = useSelector(selectVal);
-  const status = useSelector(getStatus);
-  const err = useSelector(getErr);
+
 
   useEffect(() => {
-    const postList = dispatch(fetchPosts());
   }, []);
 
   return (
@@ -47,20 +36,7 @@ export default function Home() {
           </div>
 
           <div className="fixed bottom-0 w-full h-[100px] bg-teal-50">
-            <span>{count}</span>
-            <button
-              onClick={(event) => dispatch(increment())}
-              className="bg-emerald-500"
-            >
-              Increment
-            </button>
-            <button
-              onClick={(event) => dispatch(decrement())}
-              className="bg-red-400"
-            >
-              Decrement
-            </button>
-            {status === "loading" ? <div>Loading</div> : <div>Done</div>}
+
           </div>
         </div>
       </main>

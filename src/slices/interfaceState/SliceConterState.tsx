@@ -1,5 +1,4 @@
 
-
 export interface CounterState {
   value: number,
   post: Post[],
@@ -7,7 +6,7 @@ export interface CounterState {
   error: string | undefined,
 }
 
-interface Post {
+export interface Post {
   userId: number,
   id: number,
   title: string,

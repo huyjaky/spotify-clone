@@ -11,6 +11,7 @@ const initialState: CounterState = {
 };
 
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async (arg, {rejectWithValue}) => {
+
   try {
     const response = await axios.get(
       "https://jsonplaceholder.typicode.com/posts"
