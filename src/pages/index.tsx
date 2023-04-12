@@ -1,5 +1,7 @@
 import DetailProducts from "@/components/detailproducts/DetailProducts";
 import Navbar from "@/components/navbar/Navbar";
+import { fetchPosts } from "@/slices/SliceCounter";
+import { AppDispatch, store } from "@/store/store";
 import { Montserrat } from "next/font/google";
 import Head from "next/head";
 import { useEffect } from "react";
@@ -12,12 +14,12 @@ const montserrat = Montserrat({
 });
 
 
-
 export default function Home() {
-  const dispatch = useDispatch<any>();
-
+  const AppDispatch = typeof store.dispatch
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
+    const postList = dispatch(fetchPosts());
   }, []);
 
   return (
