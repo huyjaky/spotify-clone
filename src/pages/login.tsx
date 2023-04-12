@@ -22,6 +22,8 @@ const Login = ({ providers }: Props) => {
 
   const { name: providerName, id: providerId } =
     providers?.spotify as ClientSafeProvider;
+
+
   return (
     <>
       <Head>
