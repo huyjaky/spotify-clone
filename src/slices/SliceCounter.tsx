@@ -52,8 +52,8 @@ export const counterSlide = createSlice({
 
 export const { increment, decrement, incrementByAmount } = counterSlide.actions;
 
-export const selectVal = (state: RootState) => state.testReducer.value;
-export const getStatus = (state: RootState) => state.testReducer.status;
-export const getErr = (state: RootState) => state.testReducer.error;
+export const selectVal = (state: RootState) => state.testRedux.value;
+export const getStatus = (state: RootState) => state.testRedux.status;
+export const getErr = (state: RootState) => state.testRedux.error;
 
 export default counterSlide.reducer;

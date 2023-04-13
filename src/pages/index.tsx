@@ -1,10 +1,14 @@
 import DetailProducts from "@/components/detailproducts/DetailProducts";
 import Navbar from "@/components/navbar/Navbar";
-import { fetchPosts } from "@/slices/SliceCounter";
+import { spotifyApi } from "@/config/Spotify";
+import { fetchPlaylist } from "@/slices/PlaylistUser";
+import SliceCounter, { fetchPosts } from "@/slices/SliceCounter";
 import { AppDispatch, store } from "@/store/store";
+import { ExtendedSession } from "@/types";
+import { useSession } from "next-auth/react";
 import { Montserrat } from "next/font/google";
 import Head from "next/head";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useDispatch } from "react-redux";
 
 const montserrat = Montserrat({
@@ -16,11 +20,21 @@ const montserrat = Montserrat({
 
 export default function Home() {
   const AppDispatch = typeof store.dispatch
-  const dispatch = useDispatch<AppDispatch>();
+  const {data: session} = useSession();
 
-  useEffect(() => {
-    const postList = dispatch(fetchPosts());
-  }, []);
+
+  const dispatch = useDispatch<AppDispatch>();
+  useMemo (() => {
+    if (session) {
+      spotifyApi.setAccessToken((session as ExtendedSession).accessToken);
+    }
+  }, [session])
+
+  useEffect (() => {
+    if (session) {
+      dispatch(fetchPlaylist())
+    }
+  }, [session])
 
   return (
     <>
@@ -38,7 +52,7 @@ export default function Home() {
           </div>
 
           <div className="fixed bottom-0 w-full h-[100px] bg-teal-50">
-
+            
           </div>
         </div>
       </main>

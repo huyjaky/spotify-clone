@@ -1,38 +1,41 @@
+import { ExtendedSession, ExtendedToken, TokenError } from "@/types";
+import { CallbacksOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import SpotifyProvider from "next-auth/providers/spotify";
 import { scopes, spotifyApi } from "../../../config/Spotify";
-import { CallbacksOptions } from "next-auth";
-import { ExtendedToken, TokenError } from "@/types";
 
 
-const refreshAccessToken = async ( token: ExtendedToken): Promise<ExtendedToken> => {
+const refreshAccessToken = async (
+  token: ExtendedToken
+): Promise<ExtendedToken> => {
   try {
     spotifyApi.setAccessToken(token.accessToken);
     spotifyApi.setRefreshToken(token.refreshToken);
 
     // refresh access token
-    const {body: refreshToken} = await spotifyApi.refreshAccessToken();
-    console.log('Refresh token are: ', refreshToken );
+    const { body: refreshToken } = await spotifyApi.refreshAccessToken();
+    console.log("Refresh token are: ", refreshToken);
 
     return {
       ...token,
       accessToken: refreshToken.access_token,
       refreshToken: refreshToken.refresh_token || token.refreshToken,
-      accessTokenExpiresAt: Date.now() + refreshToken.expires_in * 1000
-    }
+      accessTokenExpiresAt: Date.now() + refreshToken.expires_in * 1000,
+    };
   } catch (error) {
     console.log(error);
     return {
       ...token,
-      error: TokenError.RefreshAccessTokenError
+      error: TokenError.RefreshAccessTokenError,
     };
   }
 };
 
-
-
-
-const jwtCallback: CallbacksOptions["jwt"] = async ({ token, account, user }) => {
+const jwtCallback: CallbacksOptions["jwt"] = async ({
+  token,
+  account,
+  user,
+}) => {
   let extendedToken: ExtendedToken;
 
   // user login the first time
@@ -60,9 +63,14 @@ const jwtCallback: CallbacksOptions["jwt"] = async ({ token, account, user }) =>
   return await refreshAccessToken(token as ExtendedToken);
 };
 
-
-
-
+const sessionCallback: CallbacksOptions["session"] = async ({
+  session,
+  token,
+}) => {
+  (session as ExtendedSession).accessToken = (token as ExtendedToken).accessToken;
+  (session as ExtendedSession).error = (token as ExtendedToken).error;
+  return (session as ExtendedSession);
+};
 
 export default NextAuth({
   providers: [
@@ -82,5 +90,6 @@ export default NextAuth({
   },
   callbacks: {
     jwt: jwtCallback,
+    session: sessionCallback,
   },
 });
