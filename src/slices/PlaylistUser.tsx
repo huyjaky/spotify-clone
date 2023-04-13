@@ -1,12 +1,12 @@
 import { spotifyApi } from "@/config/Spotify";
 import { Playlist } from "@/store/PlaylistUserInterface";
+import { RootState } from "@/store/store";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState: Playlist = {
   Playlist: [],
   status: "loading",
   error: undefined,
-  user : {}
 };
 
 export const fetchPlaylist = createAsyncThunk(
@@ -25,9 +25,7 @@ const PlaylistUser = createSlice({
   name: "PlaylistUser",
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<any>) => {
-      state.user = action.payload
-    }
+
   },
   extraReducers: (builder) => {
     builder.addCase(fetchPlaylist.pending, (state) => {
@@ -35,7 +33,8 @@ const PlaylistUser = createSlice({
     });
     builder.addCase(fetchPlaylist.fulfilled, (state, action) => {
       state.status = "idle";
-      state.Playlist = [...state.Playlist, action.payload];
+      state.Playlist = action.payload ? action.payload as any[] : [];
+
     });
     builder.addCase(fetchPlaylist.rejected, (state, action) => {
       state.status = "failed";
@@ -44,6 +43,8 @@ const PlaylistUser = createSlice({
   },
 });
 
-export const {setUser} = PlaylistUser.actions;
+export const {} = PlaylistUser.actions;
+
+export const getPlaylist =(state: RootState) => state.PlaylistUser.Playlist
 
 export default PlaylistUser.reducer;

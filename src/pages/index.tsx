@@ -19,20 +19,12 @@ const montserrat = Montserrat({
 
 
 export default function Home() {
-  const AppDispatch = typeof store.dispatch
   const {data: session} = useSession();
-
 
   const dispatch = useDispatch<AppDispatch>();
   useMemo (() => {
     if (session) {
       spotifyApi.setAccessToken((session as ExtendedSession).accessToken);
-    }
-  }, [session])
-
-  useEffect (() => {
-    if (session) {
-      dispatch(fetchPlaylist())
     }
   }, [session])
 
@@ -52,7 +44,7 @@ export default function Home() {
           </div>
 
           <div className="fixed bottom-0 w-full h-[100px] bg-teal-50">
-            
+
           </div>
         </div>
       </main>

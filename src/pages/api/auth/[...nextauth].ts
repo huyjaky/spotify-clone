@@ -63,6 +63,7 @@ const jwtCallback: CallbacksOptions["jwt"] = async ({
   return await refreshAccessToken(token as ExtendedToken);
 };
 
+
 const sessionCallback: CallbacksOptions["session"] = async ({
   session,
   token,
