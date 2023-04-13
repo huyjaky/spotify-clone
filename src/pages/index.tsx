@@ -39,11 +39,11 @@ export default function Home() {
             <Navbar />
           </div>
 
-          <div className="w-[calc(100%-250px)] h-full">
+          <div className="w-[calc(100%-250px)] h-full relative z-40" >
             <DetailProducts />
           </div>
 
-          <div className="fixed bottom-0 w-full h-[100px] bg-teal-50">
+          <div className="fixed bottom-0 w-full h-[100px] bg-teal-50 z-50">
 
           </div>
         </div>

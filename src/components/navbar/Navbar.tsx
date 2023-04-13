@@ -1,20 +1,38 @@
+import { fetchPlaylist, getPlaylist } from "@/slices/PlaylistUser";
+import { AppDispatch } from "@/store/store";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const Navbar = () => {
   const { data: session } = useSession();
+  const dispatch = useDispatch<AppDispatch>();
+  const Playlist = useSelector(getPlaylist);
+
+  useEffect(() => {
+    if (session && Playlist.length == 0) {
+      dispatch(fetchPlaylist());
+    }
+  }, [session]);
+
   return (
     <div
       className="h-full w-full p-5 flex justify-center font-semibold text-[17px]
-      text-white bg-slate-800 overflow-scroll scrollbar-hide
+      text-white bg-slate-800 scrollbar-hide overflow-scroll overflow-x-hidden 
     "
     >
-      <div className="w-fit flex-col flex h-fit">
-        {session?.user && <button className="mb-3"
-          onClick={() => {
-            signOut()
-          }}
-        >{session.user.name} - Logout</button>}
+      <div className="w-fit flex-col flex h-fit mb-28 ">
+        {session?.user && (
+          <button
+            className="mb-3"
+            onClick={() => {
+              signOut();
+            }}
+          >
+            {session.user.name} - Logout
+          </button>
+        )}
 
         {/* home */}
         <Link href="/" className="w-full flex mb-3">
@@ -114,7 +132,7 @@ const Navbar = () => {
         </Link>
 
         {/* Your Episodes */}
-        <Link href={"/"} className="w-full flex mb-6">
+        <Link href={"/"} className="w-full flex mb-14">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -132,13 +150,24 @@ const Navbar = () => {
           <span className="">Your Episodes</span>
         </Link>
 
-        <Link href={"/"} className="w-full mb-3">
-          PlayList
-        </Link>
+        <div  className="w-full box-border p-6 bg-slate-700
+          rounded-2xl
+        ">
+          {Playlist?.map((item, index) => {
+            return (
+              <div key={index} className="mb-5 relative overscroll-contain">
+                <Link href={"/"}>
+                  <img src={item.images[0].url} alt="" className="rounded-xl"/>
+                </Link>
 
-        <Link href={"/"} className="w-full mb-3">
-          PlayList
-        </Link>
+                {/* toast */}
+                <div className="absolute top-[40%] right-[-110%] z-50">
+                  check
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
