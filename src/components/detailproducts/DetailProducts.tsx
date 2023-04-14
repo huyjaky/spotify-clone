@@ -1,4 +1,8 @@
-import { fetchPlaylistFromID, getPlaylistfromid, getStatus } from "@/slices/GetPlaylist";
+import {
+  fetchPlaylistFromID,
+  getPlaylistfromid,
+  getStatus,
+} from "@/slices/GetPlaylist";
 import { getPlaylist, getSelectedPlaylistfromID } from "@/slices/PlaylistUser";
 import { AppDispatch } from "@/store/store";
 import moment from "moment";
@@ -21,12 +25,11 @@ const DetailProducts = () => {
 
   return (
     // bg-gradient-to-t from-slate-900  to-emerald-500 relative -z-50
-    <div className="h-full w-full box-border p-3 bg-slate-800 ">
+    <div className="h-full w-full box-border p-3 bg-slate-800 overflow-hidden">
       <div className="h-full w-full  bg-gradient-to-t from-slate-900  to-emerald-500 rounded-xl overflow-scroll scrollbar-hide">
-
-        {status !== 'loading' ? (
+        {status !== "loading" ? (
           <>
-             {/* detail playlist */}
+            {/* detail playlist */}
             <div className="w-full h-[40%] mobilexl:h-fit">
               {/* control panel account */}
               <div className="w-full h-[50px] flex justify-end">
@@ -43,7 +46,7 @@ const DetailProducts = () => {
               <div className="w-full h-full flex box-border px-4 mobilexl:flex-col mobilexl:h-fit mobilexl:justify-center">
                 {/* img playlist */}
                 <div className="w-fit h-full flex ml-16 mobilexl:w-full mobilexl:ml-0">
-                  <div className="w-[300px] h-fit m-auto shadow-2xl shadow-slate-950">
+                  <div className="w-[300px] h-fit m-auto shadow-2xl shadow-slate-950 mobile:w-[200px]">
                     {Playlist && Playlist.images ? (
                       <img
                         src={`${Playlist.images[0].url}`}
@@ -69,12 +72,12 @@ const DetailProducts = () => {
                     </div>
 
                     {/* Name Playlist */}
-                    <div className="flex-1 w-full text-[60px] text-bold">
+                    <div className="flex-1 w-full text-[60px] font-bold mobile:text-[30px]">
                       {Playlist?.name}
                     </div>
 
                     {/* des */}
-                    <div className="flex-1 w-full">{Playlist?.description}</div>
+                    <div className="flex-1 w-full  mobile:font-light">{Playlist?.description}</div>
 
                     {/* extra in4 */}
                     <div className="flex-1 w-full">
@@ -89,15 +92,17 @@ const DetailProducts = () => {
             </div>
 
             {/* Playlist */}
-            <div className="w-full h-fit mt-36 box-border px-10">
-              <table className="border-separate border-spacing-x-0 border-spacing-y-4 w-full text-white px-3">
+            <div className="w-full h-fit mt-36 box-border px-10 mobile:px-1">
+              <table className="border-separate border-spacing-x-0 border-spacing-y-4 w-full text-white px-3
+                mobile:p-0
+              ">
                 <thead className="">
                   <tr className="text-left divide-y-reverse divide-y-2">
                     <th>&#35;</th>
                     <th>Title</th>
-                    <th>Album</th>
-                    <th>Date added</th>
-                    <th>
+                    <th className="mobilexl:hidden">Album</th>
+                    <th className="mobilexl:hidden">Date added</th>
+                    <th className="mobile:hidden">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -134,15 +139,15 @@ const DetailProducts = () => {
                             <div className="ml-6">
                               {/* name song */}
                               <div
-                                className="w-full h-[50%] text-[20px] font-semibold whitespace-nowrap
-                            overflow-hidden overflow-ellipsis
+                                className="w-full h-[50%] text-[20px] font-semibold
+                            overflow-hidden text-ellipsis mobile:text-[13px]
                           "
                               >
                                 {item.track.name}
                               </div>
 
                               {/* author */}
-                              <div className="w-full h-[50%] opacity-70 overflow-ellipsis">
+                              <div className="w-full h-[50%] opacity-70">
                                 {item.track.artists.map(
                                   (item: any, index: number) => {
                                     return (
@@ -156,9 +161,13 @@ const DetailProducts = () => {
                             </div>
                           </div>
                         </td>
-                        <td>{item.track.album.name}</td>
-                        <td>{moment(item.added_at).format("MMM DD,YYYY")}</td>
-                        <td>{moment(item.track.duration_ms).format("m:ss")}</td>
+                        <td className="mobilexl:hidden">
+                          {item.track.album.name}
+                        </td>
+                        <td className="mobilexl:hidden">
+                          {moment(item.added_at).format("MMM DD,YYYY")}
+                        </td>
+                        <td className="mobile:hidden">{moment(item.track.duration_ms).format("m:ss")}</td>
                       </tr>
                     );
                   })}

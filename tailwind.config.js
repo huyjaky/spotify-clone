@@ -16,8 +16,8 @@ module.exports = {
         CellColorHover: 'rgba(255,255,255, 0.3)',
       },
       screens: {
-        mobile: {max: '500px'},
-        mobilexl: {max: '900px', min:'501px'},
+        mobile: {max: '649px'},
+        mobilexl: {max: '1100px'},
         tablet: {min: '901px', max: '1110px'},
       },
     },
