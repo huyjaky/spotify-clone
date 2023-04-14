@@ -17,8 +17,9 @@ const Navbar2 = () => {
 
   return (
     <div className="text-white bg-slate-800 h-full w-full box-border p-3 flex flex-col">
+
       {/* control panel */}
-      <div className="box-border p-3 bg-slate-700 rounded-xl h-min-[50px]  ">
+      <div className="box-border p-3 bg-slate-700 rounded-xl ">
         <button className="mb-5">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +50,7 @@ const Navbar2 = () => {
 
       {/* playlist */}
       <div
-        className="w-full  bg-slate-700 mt-3 rounded-xl box-border p-2 h-[65vh] ">
+        className="w-full  bg-slate-700 mt-3 rounded-xl box-border p-2 h-full overflow-scroll scrollbar-hide ">
         <div className="h-full w-full flex flex-col">
           <button className="w-full">
             <svg
@@ -68,7 +69,6 @@ const Navbar2 = () => {
             </svg>
           </button>
           <div className=" w-full h-full overflow-scroll scrollbar-hide">
-
             {/* playlist */}
             {Playlist?.map((item, index) => {
               return (

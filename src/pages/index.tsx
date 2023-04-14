@@ -34,18 +34,18 @@ export default function Home() {
         <title>Spotify</title>
       </Head>
       <main className={`${montserrat.className}`}>
-        <div className="w-full h-[100vh] flex ">
-          <div className=" h-full w-[120px] ">
-            {/* w-[250px] */}
-            {/* <Navbar /> */}
-            <Navbar2 />
+        <div className="w-full h-[100vh] flex flex-col">
+          <div className="flex w-full h-[calc(100vh-70px)]">
+            <div className=" h-full w-[120px] ">
+              <Navbar2 />
+            </div>
+
+            <div className="w-full h-full ">
+              <DetailProducts />
+            </div>
           </div>
 
-          <div className="w-full h-full ">
-            <DetailProducts />
-          </div>
-
-          <div className="fixed bottom-0 w-full h-[70px] bg-teal-600 z-50"></div>
+          <div className="w-full h-[70px] bg-teal-600"></div>
         </div>
       </main>
     </>

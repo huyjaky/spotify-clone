@@ -41,6 +41,7 @@ export const {} = GetPlaylistFromID.actions
 
 // export selectors
 export const getPlaylistfromid = (state: RootState) => state.GetPlaylist.Playlist
+export const getStatus = (state: RootState) => state.GetPlaylist.status
 
 
 export default GetPlaylistFromID.reducer;
