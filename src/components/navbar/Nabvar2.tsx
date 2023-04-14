@@ -72,7 +72,6 @@ const Navbar2 = () => {
             {/* playlist */}
             {Playlist?.map((item, index) => {
               return (
-                <>
                   <button key={index} className="mb-2 relative"
                     onClick={(event) => {
                       dispatch(setPlaylistID(item.id))
@@ -84,7 +83,6 @@ const Navbar2 = () => {
                       className="rounded-xl"
                     />
                   </button>
-                </>
               );
             })}
           </div>
