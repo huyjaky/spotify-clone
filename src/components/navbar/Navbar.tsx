@@ -19,10 +19,10 @@ const Navbar = () => {
   return (
     <div
       className="h-full w-full p-5 flex justify-center font-semibold text-[17px]
-      text-white bg-slate-800 scrollbar-hide overflow-scroll overflow-x-hidden 
+      text-white bg-slate-800
     "
     >
-      <div className="w-fit flex-col flex h-fit mb-28 ">
+      <div className="w-fit flex-col flex h-full mb-28 ">
         {session?.user && (
           <button
             className="mb-3"
@@ -150,18 +150,19 @@ const Navbar = () => {
           <span className="">Your Episodes</span>
         </Link>
 
-        <div  className="w-full box-border p-6 bg-slate-700
+
+        <div  className="w-full box-border p-6 bg-slate-700 h-full
           rounded-2xl
         ">
           {Playlist?.map((item, index) => {
             return (
-              <div key={index} className="mb-5 relative overscroll-contain">
+              <div key={index} className="mb-5 overscroll-contain relative">
                 <Link href={"/"}>
                   <img src={item.images[0].url} alt="" className="rounded-xl"/>
                 </Link>
 
                 {/* toast */}
-                <div className="absolute top-[40%] right-[-110%] z-50">
+                <div className="absolute top-[40%] right-[-40%] z-50 text-emerald-500">
                   check
                 </div>
               </div>

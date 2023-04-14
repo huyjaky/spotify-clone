@@ -1,3 +1,4 @@
+import GetPlaylist from "@/slices/GetPlaylist";
 import PlaylistUser from "@/slices/PlaylistUser";
 import SliceCounter from "@/slices/SliceCounter";
 import { configureStore } from "@reduxjs/toolkit";
@@ -7,6 +8,7 @@ export function makeStore() {
     reducer: {
       testRedux: SliceCounter,
       PlaylistUser: PlaylistUser,
+      GetPlaylist: GetPlaylist
     },
   });
 }

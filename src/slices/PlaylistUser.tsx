@@ -1,10 +1,12 @@
 import { spotifyApi } from "@/config/Spotify";
-import { Playlist } from "@/store/PlaylistUserInterface";
 import { RootState } from "@/store/store";
+import { Playlist } from "@/types/PlaylistUserInterface";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState: Playlist = {
   Playlist: [],
+  SelectedPlaylistID: null,
+  SelectedPlaylist: null,
   status: "loading",
   error: undefined,
 };
@@ -25,7 +27,12 @@ const PlaylistUser = createSlice({
   name: "PlaylistUser",
   initialState,
   reducers: {
-
+    setPlaylistID: (state, action: PayloadAction<string>) => {
+      state.SelectedPlaylistID = action.payload;
+    },
+    setPlaylist: (state, action: PayloadAction<string>) => {
+      state.SelectedPlaylist = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchPlaylist.pending, (state) => {
@@ -33,8 +40,7 @@ const PlaylistUser = createSlice({
     });
     builder.addCase(fetchPlaylist.fulfilled, (state, action) => {
       state.status = "idle";
-      state.Playlist = action.payload ? action.payload as any[] : [];
-
+      state.Playlist = action.payload ? (action.payload as any[]) : [];
     });
     builder.addCase(fetchPlaylist.rejected, (state, action) => {
       state.status = "failed";
@@ -43,8 +49,12 @@ const PlaylistUser = createSlice({
   },
 });
 
-export const {} = PlaylistUser.actions;
+// export action
+export const {setPlaylist, setPlaylistID} = PlaylistUser.actions;
 
-export const getPlaylist =(state: RootState) => state.PlaylistUser.Playlist
+// export selector
+export const getPlaylist = (state: RootState) => state.PlaylistUser.Playlist;
+export const getSelectedPlaylistfromID = (state: RootState) => state.PlaylistUser.SelectedPlaylistID;
+export const getSelectedPlaylist = (state: RootState) => state.PlaylistUser.SelectedPlaylist;
 
 export default PlaylistUser.reducer;

@@ -1,6 +1,8 @@
+
+
+
 export interface Playlist {
-  Playlist: any[];
+  Playlist: any,
   status: "idle" | "loading" | "failed";
   error: string | undefined;
 }
-

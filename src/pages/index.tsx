@@ -1,4 +1,5 @@
 import DetailProducts from "@/components/detailproducts/DetailProducts";
+import Navbar2 from "@/components/navbar/Nabvar2";
 import Navbar from "@/components/navbar/Navbar";
 import { spotifyApi } from "@/config/Spotify";
 import { fetchPlaylist } from "@/slices/PlaylistUser";
@@ -17,16 +18,15 @@ const montserrat = Montserrat({
   variable: "--font-montserrat",
 });
 
-
 export default function Home() {
-  const {data: session} = useSession();
+  const { data: session } = useSession();
 
   const dispatch = useDispatch<AppDispatch>();
-  useMemo (() => {
+  useMemo(() => {
     if (session) {
       spotifyApi.setAccessToken((session as ExtendedSession).accessToken);
     }
-  }, [session])
+  }, [session]);
 
   return (
     <>
@@ -34,18 +34,18 @@ export default function Home() {
         <title>Spotify</title>
       </Head>
       <main className={`${montserrat.className}`}>
-        <div className="w-full h-[100vh] flex relative">
-          <div className="w-[250px] h-full">
-            <Navbar />
+        <div className="w-full h-[100vh] flex ">
+          <div className=" h-full w-[120px] ">
+            {/* w-[250px] */}
+            {/* <Navbar /> */}
+            <Navbar2 />
           </div>
 
-          <div className="w-[calc(100%-250px)] h-full relative z-40" >
+          <div className="w-full h-full ">
             <DetailProducts />
           </div>
 
-          <div className="fixed bottom-0 w-full h-[100px] bg-teal-50 z-50">
-
-          </div>
+          <div className="fixed bottom-0 w-full h-[100px] bg-teal-600 z-50"></div>
         </div>
       </main>
     </>
