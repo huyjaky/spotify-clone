@@ -45,7 +45,7 @@ export default function Home() {
             <DetailProducts />
           </div>
 
-          <div className="fixed bottom-0 w-full h-[100px] bg-teal-600 z-50"></div>
+          <div className="fixed bottom-0 w-full h-[70px] bg-teal-600 z-50"></div>
         </div>
       </main>
     </>
