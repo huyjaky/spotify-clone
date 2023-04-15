@@ -20,6 +20,13 @@ module.exports = {
         mobilexl: {max: '1100px'},
         tablet: {min: '901px', max: '1110px'},
       },
+      keyframes: {
+
+      },
+      animation: {
+        // hoverButton: 'hoverButton 1s ease-in-out'
+      },
+
     },
   },
   plugins: [require("tailwind-scrollbar-hide")],

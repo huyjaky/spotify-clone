@@ -1,14 +1,16 @@
+import Device from "@/slices/Device";
 import GetPlaylist from "@/slices/GetPlaylist";
 import PlaylistUser from "@/slices/PlaylistUser";
-import SliceCounter from "@/slices/SliceCounter";
+import Song from "@/slices/Song";
 import { configureStore } from "@reduxjs/toolkit";
 
 export function makeStore() {
   return configureStore({
     reducer: {
-      testRedux: SliceCounter,
       PlaylistUser: PlaylistUser,
-      GetPlaylist: GetPlaylist
+      GetPlaylist: GetPlaylist,
+      Device: Device,
+      Song:Song
     },
   });
 }

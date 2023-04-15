@@ -1,16 +1,14 @@
 import DetailProducts from "@/components/detailproducts/DetailProducts";
 import Navbar2 from "@/components/navbar/Nabvar2";
-import Navbar from "@/components/navbar/Navbar";
 import { spotifyApi } from "@/config/Spotify";
-import { fetchPlaylist } from "@/slices/PlaylistUser";
-import SliceCounter, { fetchPosts } from "@/slices/SliceCounter";
-import { AppDispatch, store } from "@/store/store";
+import { AppDispatch } from "@/store/store";
 import { ExtendedSession } from "@/types";
 import { useSession } from "next-auth/react";
 import { Montserrat } from "next/font/google";
 import Head from "next/head";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { useDispatch } from "react-redux";
+import Play from "@/components/play/Play";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -35,7 +33,7 @@ export default function Home() {
       </Head>
       <main className={`${montserrat.className}`}>
         <div className="w-full h-[100vh] flex flex-col">
-          <div className="flex w-full h-[calc(100vh-70px)]">
+          <div className="flex w-full h-[calc(100vh-90px)]">
             <div className=" h-full w-[120px] ">
               <Navbar2 />
             </div>
@@ -45,7 +43,9 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="w-full h-[70px] bg-teal-600"></div>
+          <div className="w-full h-[90px]">
+            <Play />
+          </div>
         </div>
       </main>
     </>

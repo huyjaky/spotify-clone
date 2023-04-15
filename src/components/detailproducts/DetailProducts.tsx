@@ -3,12 +3,13 @@ import {
   getPlaylistfromid,
   getStatus,
 } from "@/slices/GetPlaylist";
-import { getPlaylist, getSelectedPlaylistfromID } from "@/slices/PlaylistUser";
+import { getSelectedPlaylistfromID } from "@/slices/PlaylistUser";
 import { AppDispatch } from "@/store/store";
 import moment from "moment";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import ControlPanelAccount from "./account/ControlPanelAccount";
 
 const DetailProducts = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -24,23 +25,16 @@ const DetailProducts = () => {
   }, [id]);
 
   return (
-    // bg-gradient-to-t from-slate-900  to-emerald-500 relative -z-50
     <div className="h-full w-full box-border p-3 bg-slate-800 overflow-hidden">
       <div className="h-full w-full  bg-gradient-to-t from-slate-900  to-emerald-500 rounded-xl overflow-scroll scrollbar-hide">
+
+        {/* if status fetchPlaylistFromID is not exist => not show anything */}
         {status !== "loading" ? (
           <>
             {/* detail playlist */}
             <div className="w-full h-[40%] mobilexl:h-fit">
               {/* control panel account */}
-              <div className="w-full h-[50px] flex justify-end">
-                <div className="rounded-full overflow-hidden mr-2 mt-2 border-[5px] border-zinc-600">
-                  <img
-                    src={`${session?.user?.image}`}
-                    alt=""
-                    className="h-full w-full object-cover "
-                  />
-                </div>
-              </div>
+              <ControlPanelAccount />
 
               {/* des */}
               <div className="w-full h-full flex box-border px-4 mobilexl:flex-col mobilexl:h-fit mobilexl:justify-center">
@@ -124,8 +118,8 @@ const DetailProducts = () => {
                   {Playlist?.tracks?.items?.map((item: any, index: number) => {
                     return (
                       <tr className="hover:bg-CellColorHover h-fit hover:rounded-2xl">
-                        <td>{index + 1}</td>
-                        <td>
+                        <td className="cursor-pointer">{index + 1}</td>
+                        <td className="cursor-pointer">
                           <div className="flex">
                             <img
                               src={`${
@@ -161,13 +155,13 @@ const DetailProducts = () => {
                             </div>
                           </div>
                         </td>
-                        <td className="mobilexl:hidden">
+                        <td className="mobilexl:hidden cursor-pointer">
                           {item.track.album.name}
                         </td>
-                        <td className="mobilexl:hidden">
+                        <td className="mobilexl:hidden cursor-pointer">
                           {moment(item.added_at).format("MMM DD,YYYY")}
                         </td>
-                        <td className="mobile:hidden">{moment(item.track.duration_ms).format("m:ss")}</td>
+                        <td className="mobile:hidden cursor-pointer">{moment(item.track.duration_ms).format("m:ss")}</td>
                       </tr>
                     );
                   })}
