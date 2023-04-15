@@ -7,7 +7,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 const initialState: Device = {
   Device: [],
   status: 'loading',
-  error: undefined
+  error: null
 }
 
 export const fetchDevice = createAsyncThunk('spotify/fetchDevice', async(arg, {rejectWithValue}) => {
@@ -33,7 +33,7 @@ const device = createSlice({
     })
     builder.addCase(fetchDevice.rejected, (state, action) => {
       state.status = 'failed';
-      state.error = action.error.message;
+      state.error = action.error.message ? action.error.message : null;
     })
   }
 })

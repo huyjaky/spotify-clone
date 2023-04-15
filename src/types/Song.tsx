@@ -1,7 +1,7 @@
 
 
 export interface Song {
-  selectedSongID: string | undefined,
+  selectedSongID: string | null,
   selectedSong: any | null,
   isPlaying: boolean,
   volume: number,

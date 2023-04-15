@@ -9,8 +9,6 @@ const montserrat = Montserrat({
   variable: '--font-montserrat'
 });
 
-
-
 interface Props {
   providers: Awaited<ReturnType<typeof getProviders>>;
 }

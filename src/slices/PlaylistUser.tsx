@@ -8,7 +8,7 @@ const initialState: Playlist = {
   SelectedPlaylistID: null,
   SelectedPlaylist: null,
   status: "loading",
-  error: undefined,
+  error: null,
 };
 
 export const fetchPlaylist = createAsyncThunk(
@@ -44,7 +44,7 @@ const PlaylistUser = createSlice({
     });
     builder.addCase(fetchPlaylist.rejected, (state, action) => {
       state.status = "failed";
-      state.error = action.error.message;
+      state.error = action.error.message ? action.error.message : null;
     });
   },
 });

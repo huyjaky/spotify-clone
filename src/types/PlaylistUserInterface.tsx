@@ -3,6 +3,6 @@ export interface Playlist {
   SelectedPlaylistID: string | null,
   SelectedPlaylist: any | null,
   status: "idle" | "loading" | "failed";
-  error: string | undefined;
+  error: string | null;
 }
 

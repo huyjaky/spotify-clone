@@ -3,7 +3,7 @@ import { Song } from "@/types/Song";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState: Song = {
-  selectedSongID: undefined,
+  selectedSongID: null,
   selectedSong: null,
   isPlaying: false,
   volume: 100,
