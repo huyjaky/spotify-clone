@@ -1,7 +1,6 @@
 import Device from "@/slices/Device";
 import GetPlaylist from "@/slices/GetPlaylist";
 import PlaylistUser from "@/slices/PlaylistUser";
-import Song from "@/slices/Song";
 import { configureStore } from "@reduxjs/toolkit";
 
 export function makeStore() {
@@ -10,7 +9,6 @@ export function makeStore() {
       PlaylistUser: PlaylistUser,
       GetPlaylist: GetPlaylist,
       Device: Device,
-      Song:Song
     },
   });
 }

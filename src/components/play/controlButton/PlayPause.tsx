@@ -13,11 +13,11 @@ const PlayPause = () => {
     if (!response.body) return;
     console.log(response.body);
 
-    // if (response.body.is_playing) {
-    //   await spotifyApi.pause();
-    // } else {
-    //   await spotifyApi.play();
-    // }
+    if (response.body.is_playing) {
+      await spotifyApi.pause();
+    } else {
+      await spotifyApi.play();
+    }
   };
 
   return (

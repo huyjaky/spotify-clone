@@ -117,7 +117,7 @@ const DetailProducts = () => {
                 <tbody>
                   {Playlist?.tracks?.items?.map((item: any, index: number) => {
                     return (
-                      <tr className="hover:bg-CellColorHover h-fit hover:rounded-2xl">
+                      <tr className="hover:bg-CellColorHover h-fit hover:rounded-2xl" key={index}>
                         <td className="cursor-pointer">{index + 1}</td>
                         <td className="cursor-pointer">
                           <div className="flex">

@@ -1,38 +1,56 @@
-import { spotifyApi } from "@/config/Spotify";
-import { Song } from "@/types/Song";
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import useSpotify from "@/hooks/useSpotify";
+import { SongContextState, song } from "@/types/Song";
+import { useSession } from "next-auth/react";
+import { ReactNode, createContext, useEffect, useState } from "react";
 
-const initialState: Song = {
-  selectedSongID: null,
-  selectedSong: null,
-  isPlaying: false,
-  volume: 100,
-  deviceID: null,
-};
+interface songContextProps{
+  children: ReactNode
+}
 
-const Song = createSlice({
-  name: 'Song',
-  initialState,
-  reducers: {
-    setSelectedSong: (state, action: PayloadAction<any>) => {
-      state.selectedSong = action.payload;
-    },
-    setSelectedSongID: (state, action: PayloadAction<string>) => {
-      state.selectedSongID = action.payload;
-    },
-    setvolume: (state, action: PayloadAction<number>) => {
-      state.volume = action.payload;
-    },
+const defaultSongContextState: SongContextState = {
+  songContext: {
+    selectedSongID: undefined,
+    selectedSong: null,
+    isPlaying: false,
+    volume: 50,
+    deviceID: null
   },
-  extraReducers: (builder) => {
-  }
-})
-
-// action
-export const {setSelectedSong, setSelectedSongID, setvolume} = Song.actions;
-
-// selector
+  setSongContext: ()=>{}
+}
 
 
-// reducrer
-export default Song.reducer;
+
+export const SongContext = createContext<SongContextState>(defaultSongContextState);
+
+const SongContextProvider = ({ children }: songContextProps) => {
+  const spotifyApi = useSpotify();
+  const {data: session} = useSession();
+  const [songContext, setSongContext_] = useState(defaultSongContextState.songContext);
+  const setSongContext = (payload: song) => setSongContext_(payload);
+  const songContextDynamicData = {songContext, setSongContext};
+
+  useEffect(()=>{
+    const setCurrentDevice = async () => {
+      const availableDeviceRes = await spotifyApi.getMyDevices();
+      console.log('availabile devices', availableDeviceRes);
+      if (!availableDeviceRes.body.devices.length) return
+      const {id: deviceID, volume_percent} = availableDeviceRes.body.devices[0];
+      setSongContext_({...songContext, deviceID: deviceID, volume: volume_percent as number })
+      await spotifyApi.transferMyPlayback([deviceID as string]);
+    }
+
+    if (spotifyApi.getAccessToken()) {
+      setCurrentDevice();
+    }
+  },[spotifyApi, session])
+
+  return (
+    <SongContext.Provider value={songContextDynamicData}>
+      {children}
+    </SongContext.Provider>
+  )
+}
+
+export default SongContextProvider;
+
+
