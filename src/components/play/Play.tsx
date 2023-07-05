@@ -104,7 +104,7 @@ const Play = () => {
             </div>
 
             <div className="w-full h-[50%] flex-1">
-              <div className="w-full h-full">check</div>
+              {/* <div className="w-full h-full">check</div> */}
             </div>
           </div>
 

@@ -35,11 +35,9 @@ export default function Home() {
       <main className={`${montserrat.className}`}>
         <div className="w-full h-[100vh] flex flex-col">
           <div className="flex w-full h-[calc(100vh-90px)]">
-
               <div className=" h-full w-[120px] ">
                 <Navbar2 />
               </div>
-
               <div className="w-full h-full ">
                 <DetailProducts />
               </div>
