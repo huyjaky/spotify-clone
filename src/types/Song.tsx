@@ -8,7 +8,7 @@ export interface SongContextState {
 export interface song {
 
     selectedSongID?: string ,
-    selectedSong:null|any,
+    selectedSong:null|SpotifyApi.TrackObjectFull,
     isPlaying: boolean,
     volume: number,
     deviceID: string | null,

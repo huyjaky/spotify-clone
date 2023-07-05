@@ -1,24 +1,25 @@
 import { spotifyApi } from "@/config/Spotify";
 import useSpotify from "@/hooks/useSpotify";
+import { SongContext } from "@/slices/Song";
+import { useContext, useEffect } from "react";
+
+
 
 const PlayPause = () => {
-
-  const handlePlayPause = async() => {
-    const playBtn = document.getElementById("play--btn");
-    const pauseBtn = document.getElementById("pause--btn");
-    playBtn?.classList.toggle("hidden");
-    pauseBtn?.classList.toggle("hidden");
-
+  const { songContext, setSongContext } = useContext(SongContext);
+  const handlePlayPause = async () => {
     const response = await spotifyApi.getMyCurrentPlaybackState();
     if (!response.body) return;
-    console.log(response.body);
 
-    if (response.body.is_playing) {
+    if (songContext.isPlaying) {
       await spotifyApi.pause();
     } else {
       await spotifyApi.play();
     }
+    setSongContext({ ...songContext, isPlaying: !songContext.isPlaying });
   };
+
+  useEffect(() => {}, [songContext.isPlaying])
 
   return (
     <>
@@ -28,9 +29,8 @@ const PlayPause = () => {
         <button
           id="play--btn"
           onClick={handlePlayPause}
-          className=" hover:transition-transform hover:scale-[1.25]
-            hover:duration-300
-        "
+          className={` hover:transition-transform hover:scale-[1.25]
+            hover:duration-300 ${songContext.isPlaying ? '' : 'hidden'}`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -50,9 +50,8 @@ const PlayPause = () => {
         <button
           id="pause--btn"
           onClick={handlePlayPause}
-          className="hidden hover:transition-transform hover:scale-[1.25]
-            hover:duration-300
-        "
+          className={` hover:transition-transform hover:scale-[1.25]
+            hover:duration-300 ${songContext.isPlaying ? 'hidden' : ''}`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

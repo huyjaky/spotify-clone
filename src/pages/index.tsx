@@ -1,14 +1,14 @@
 import DetailProducts from "@/components/detailproducts/DetailProducts";
 import Navbar2 from "@/components/navbar/Nabvar2";
+import Play from "@/components/play/Play";
 import { spotifyApi } from "@/config/Spotify";
-import { AppDispatch, store } from "@/store/store";
+import { AppDispatch } from "@/store/store";
 import { ExtendedSession } from "@/types";
 import { useSession } from "next-auth/react";
 import { Montserrat } from "next/font/google";
 import Head from "next/head";
 import { useMemo } from "react";
-import { Provider, useDispatch } from "react-redux";
-import Play from "@/components/play/Play";
+import { useDispatch } from "react-redux";
 
 const montserrat = Montserrat({
   subsets: ["latin"],

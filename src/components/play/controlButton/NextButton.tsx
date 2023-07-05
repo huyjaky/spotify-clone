@@ -1,6 +1,10 @@
-const NextButton = () => {
+interface NextButtonProps {
+  handleSkipSong: (skipTo: 'previouse' | 'next') => Promise<void>
+}
+
+const NextButton = ({handleSkipSong}: NextButtonProps) => {
   return (
-    <div className="w-fit h-full flex items-center hover:scale-[1.25] hover:transition-transform
+    <div onClick={event => handleSkipSong("next")} className="w-fit h-full flex items-center hover:scale-[1.25] hover:transition-transform
       hover:duration-300
       ">
       <svg

@@ -7,9 +7,11 @@ import { getSelectedPlaylistfromID } from "@/slices/PlaylistUser";
 import { AppDispatch } from "@/store/store";
 import moment from "moment";
 import { useSession } from "next-auth/react";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ControlPanelAccount from "./account/ControlPanelAccount";
+import useSpotify from "@/hooks/useSpotify";
+import { SongContext } from "@/slices/Song";
 
 const DetailProducts = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -17,6 +19,27 @@ const DetailProducts = () => {
   const id: string | null = useSelector(getSelectedPlaylistfromID);
   const Playlist = useSelector(getPlaylistfromid);
   const status = useSelector(getStatus);
+
+  const spotifyApi = useSpotify();
+  const {songContext, setSongContext} = useContext(SongContext)
+
+  const playSong = async (item: SpotifyApi.PlaylistTrackObject) => {
+    if (!songContext.deviceID) return
+
+    setSongContext({...songContext, selectedSong: item.track, selectedSongID: item.track?.id,
+      isPlaying: true
+    })
+    await spotifyApi.play({
+      device_id: songContext.deviceID,
+      context_uri: Playlist?.uri,
+      offset: {
+        uri: item.track?.uri as string
+      }
+    })
+
+
+  }
+
 
   useEffect(() => {
     if (id) {
@@ -115,16 +138,18 @@ const DetailProducts = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {Playlist?.tracks?.items?.map((item: any, index: number) => {
+                  {Playlist?.tracks?.items?.map((item: SpotifyApi.PlaylistTrackObject, index: number) => {
                     return (
-                      <tr className="hover:bg-CellColorHover h-fit hover:rounded-2xl" key={index}>
+                      <tr
+                      onClick={(event)=>{playSong(item)}}
+                       className="hover:bg-CellColorHover h-fit hover:rounded-2xl" key={index}>
                         <td className="cursor-pointer">{index + 1}</td>
                         <td className="cursor-pointer">
                           <div className="flex">
                             <img
                               src={`${
-                                item.track.album.images[0]
-                                  ? item.track.album.images[0].url
+                                item?.track?.album.images[0]
+                                  ? item?.track?.album.images[0].url
                                   : "https://e7.pngegg.com/pngimages/239/995/png-clipart-spotify-computer-icons-streaming-media-listen-on-spotify-hand-logo.png"
                               }`}
                               alt=""
@@ -137,12 +162,12 @@ const DetailProducts = () => {
                             overflow-hidden text-ellipsis mobile:text-[13px]
                           "
                               >
-                                {item.track.name}
+                                {item?.track?.name}
                               </div>
 
                               {/* author */}
                               <div className="w-full h-[50%] opacity-70">
-                                {item.track.artists.map(
+                                {item?.track?.artists.map(
                                   (item: any, index: number) => {
                                     return (
                                       <span key={index}>
@@ -156,12 +181,12 @@ const DetailProducts = () => {
                           </div>
                         </td>
                         <td className="mobilexl:hidden cursor-pointer">
-                          {item.track.album.name}
+                          {item?.track?.album.name}
                         </td>
                         <td className="mobilexl:hidden cursor-pointer">
                           {moment(item.added_at).format("MMM DD,YYYY")}
                         </td>
-                        <td className="mobile:hidden cursor-pointer">{moment(item.track.duration_ms).format("m:ss")}</td>
+                        <td className="mobile:hidden cursor-pointer">{moment(item?.track?.duration_ms).format("m:ss")}</td>
                       </tr>
                     );
                   })}

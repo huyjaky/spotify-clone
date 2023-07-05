@@ -1,6 +1,10 @@
-const BackButton = () => {
+interface BackButtonProps{
+  handleSkipSong: (skipTo: 'previouse' | 'next') => Promise<void>
+}
+
+const BackButton = ({handleSkipSong}: BackButtonProps) => {
   return (
-    <div className="w-fit h-full flex items-center hover:transition-transform hover:scale-[1.25]
+    <div onClick={event => handleSkipSong('previouse')} className="w-fit h-full flex items-center hover:transition-transform hover:scale-[1.25]
       hover:duration-300
     ">
       <svg

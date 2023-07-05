@@ -11,15 +11,13 @@ export default function App({
 }: AppProps) {
   return (
     <>
-
-    <Provider store={store}>
-      <SessionProvider session={session}>
-        <SongContextProvider>
-
-          <Component {...pageProps} />
-        </SongContextProvider>
-      </SessionProvider>
-    </Provider>
+      <Provider store={store}>
+        <SessionProvider session={session}>
+          <SongContextProvider>
+            <Component {...pageProps} />
+          </SongContextProvider >
+        </SessionProvider>
+      </Provider>
     </>
   );
 }
